@@ -60,9 +60,9 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/hanzozt/ziti-gitlab-webhook:${{ github.run_number }}
-            ghcr.io/hanzozt/ziti-gitlab-webhook:latest
-            ghcr.io/hanzozt/ziti-gitlab-webhook:${{ steps.extract_version_number.outputs.version_number }}
+            ghcr.io/hanzozt/zt-gitlab-webhook:${{ github.run_number }}
+            ghcr.io/hanzozt/zt-gitlab-webhook:latest
+            ghcr.io/hanzozt/zt-gitlab-webhook:${{ steps.extract_version_number.outputs.version_number }}
         if: |
           steps.extract_branch.outputs.branch == 'main'
 
@@ -72,8 +72,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/hanzozt/ziti-gitlab-webhook:${{ github.run_number }}
-            ghcr.io/hanzozt/ziti-gitlab-webhook:PR${{ steps.extract_pr_number.outputs.pr_number }}.${{ github.run_number }}
+            ghcr.io/hanzozt/zt-gitlab-webhook:${{ github.run_number }}
+            ghcr.io/hanzozt/zt-gitlab-webhook:PR${{ steps.extract_pr_number.outputs.pr_number }}.${{ github.run_number }}
         if: |
           steps.extract_branch.outputs.branch != 'main'
           

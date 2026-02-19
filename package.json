@@ -1,5 +1,5 @@
 {
-  "name": "ziti-gitlab-webhook",
+  "name": "zt-gitlab-webhook",
   "version": "0.1.1",
   "description": "POST a Webhook over a Ziti network from a GitLab CI pipeline",
   "main": "dist/index.js",
@@ -8,11 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzozt/ziti-gitlab-webhook.git"
+    "url": "git+https://github.com/hanzozt/zt-gitlab-webhook.git"
   },
   "keywords": [
     "gitlab",
-    "ziti",
+    "zt",
     "webhook"
   ],
   "author": {
@@ -21,11 +21,11 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/hanzozt/ziti-gitlab-webhook/issues"
+    "url": "https://github.com/hanzozt/zt-gitlab-webhook/issues"
   },
-  "homepage": "https://github.com/hanzozt/ziti-gitlab-webhook#readme",
+  "homepage": "https://github.com/hanzozt/zt-gitlab-webhook#readme",
   "dependencies": {
     "uuid": "^8.3.2",
-    "ziti-sdk-nodejs": "^0.2.3"
+    "zt-sdk-nodejs": "^0.2.3"
   }
 }

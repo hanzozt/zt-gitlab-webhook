@@ -1,11 +1,11 @@
 const fs     = require('fs');
-const ziti   = require('ziti-sdk-nodejs');
+const zt   = require('zt-sdk-nodejs');
 
 const UV_EOF = -4095;
 
-const zitiInit = async (zitiFile) => {
+const ztInit = async (ztFile) => {
   return new Promise((resolve, reject) => {
-    var rc = ziti.ziti_init(zitiFile, (init_rc) => {
+    var rc = zt.zt_init(ztFile, (init_rc) => {
         if (init_rc < 0) {
             return reject(`init_rc = ${init_rc}`);
         }
@@ -18,9 +18,9 @@ const zitiInit = async (zitiFile) => {
   });
 };
 
-const zitiServiceAvailable = async (service) => {
+const ztServiceAvailable = async (service) => {
   return new Promise((resolve, reject) => {
-    ziti.ziti_service_available(service, (obj) => {
+    zt.zt_service_available(service, (obj) => {
       if (obj.status != 0) {
         console.log(`service ${service} not available, status: ${status}`);
         return reject(status);
@@ -32,9 +32,9 @@ const zitiServiceAvailable = async (service) => {
   });
 }
 
-const zitiHttpRequest = async (url, method, headers) => {
+const ztHttpRequest = async (url, method, headers) => {
   return new Promise((resolve) => {
-    ziti.Ziti_http_request(
+    zt.Ziti_http_request(
       url, 
       method,
       headers,
@@ -70,8 +70,8 @@ const zitiHttpRequest = async (url, method, headers) => {
   });
 };
 
-const zitiHttpRequestData = async (req, buf) => {
-  ziti.Ziti_http_request_data(
+const ztHttpRequestData = async (req, buf) => {
+  zt.Ziti_http_request_data(
     req, 
     buf,
     (obj) => { // on_req_body callback
@@ -87,11 +87,11 @@ console.log('Going async...');
 (async function() {
   try {
     const zidFile        = './zid.json'
-    const zitiId         = process.env.ZITI_IDENTITY;
+    const ztId         = process.env.ZITI_IDENTITY;
     const webhookUrl     = process.env.WEBHOOK_URL;
     const webhookPayload = process.env.WEBHOOK_PAYLOAD;
 
-    if (zitiId === '') {
+    if (ztId === '') {
       console.log(`ZITI_IDENTITY env var was not specified`);
       process.exit(-1);
     }
@@ -105,22 +105,22 @@ console.log('Going async...');
     }
 
 
-    // Write zitiId to file
-    fs.writeFileSync(zidFile, zitiId);
+    // Write ztId to file
+    fs.writeFileSync(zidFile, ztId);
 
     // First make sure we can initialize Ziti
-    await zitiInit(zidFile).catch((err) => {
-      console.log(`zitiInit failed: ${err}`);
+    await ztInit(zidFile).catch((err) => {
+      console.log(`ztInit failed: ${err}`);
       process.exit(-1);
     });
 
-    // Make sure we have ziti service available
-    // Note: ziti-sdk-nodejs (currently) requires service name to match URL host
+    // Make sure we have zt service available
+    // Note: zt-sdk-nodejs (currently) requires service name to match URL host
     // (TODO: write an issue to change this - no reason that should need to match, and can lead to errors)
     let url = new URL(webhookUrl);
     let serviceName = url.hostname;
-    await zitiServiceAvailable(serviceName).catch((err) => {
-      console.log(`zitiServiceAvailable failed: ${err}`);
+    await ztServiceAvailable(serviceName).catch((err) => {
+      console.log(`ztServiceAvailable failed: ${err}`);
       process.exit(-1);
     });
 
@@ -130,21 +130,21 @@ console.log('Going async...');
 
     // Send it over Ziti
     let headersArray = [
-      'User-Agent: GitLab-Hookshot/ziti-gitlab-webhook', 
+      'User-Agent: GitLab-Hookshot/zt-gitlab-webhook', 
       'Content-Type: application/json',
       `Content-Length: ${payloadBuf.length}`,
     ];
-    let req = await zitiHttpRequest(webhookUrl, 'POST', headersArray).catch((err) => {
-      console.log(`zitiHttpRequest failed: ${err}`);
+    let req = await ztHttpRequest(webhookUrl, 'POST', headersArray).catch((err) => {
+      console.log(`ztHttpRequest failed: ${err}`);
       process.exit(-1);
     });
 
     // Send the payload
-    results = await zitiHttpRequestData(req, payloadBuf).catch((err) => {
-      console.log(`zitiHttpRequestData failed: ${err}`);
+    results = await ztHttpRequestData(req, payloadBuf).catch((err) => {
+      console.log(`ztHttpRequestData failed: ${err}`);
       process.exit(-1);
     });
-    ziti.Ziti_http_request_end(req);
+    zt.Ziti_http_request_end(req);
 
   } catch (error) {
     console.log(error.message);

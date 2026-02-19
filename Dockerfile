@@ -8,8 +8,8 @@ RUN apt-get update
 RUN apt-get install jq curl python2 
 
 # Create directory for the Ziti GitLab webhook, and explicitly set the owner of that new directory to the node user
-RUN mkdir /home/node/ziti-gitlab-webhook/ && chown -R node:node /home/node/ziti-gitlab-webhook
-WORKDIR /home/node/ziti-gitlab-webhook
+RUN mkdir /home/node/zt-gitlab-webhook/ && chown -R node:node /home/node/zt-gitlab-webhook
+WORKDIR /home/node/zt-gitlab-webhook
 
 # Prepare for dependencies installation
 COPY --chown=node:node package*.json ./
@@ -25,9 +25,9 @@ USER node
 
 # Bring in the source of the Ziti GitLab webhook to the working folder
 COPY --chown=node:node index.js .
-COPY --chown=node:node ziti-webhook .
+COPY --chown=node:node zt-webhook .
 
 # Put the Ziti GitLab webhook on path 
-ENV PATH=/home/node/ziti-gitlab-webhook:$PATH
-# ENTRYPOINT ["/home/node/ziti-gitlab-webhook/zgw-docker-entrypoint"]
+ENV PATH=/home/node/zt-gitlab-webhook:$PATH
+# ENTRYPOINT ["/home/node/zt-gitlab-webhook/zgw-docker-entrypoint"]
 
