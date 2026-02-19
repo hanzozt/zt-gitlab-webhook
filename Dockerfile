@@ -1,7 +1,7 @@
 # FROM node:lts-alpine3.12
 FROM node:14.15.4-buster
 
-LABEL maintainer="OpenZiti <openziti@netfoundry.io>"
+LABEL maintainer="Hanzo ZT <hanzozt@netfoundry.io>"
 
 # Install useful tools
 RUN apt-get update

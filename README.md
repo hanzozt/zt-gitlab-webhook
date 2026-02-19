@@ -8,21 +8,21 @@ A Docker image usable within GitLab CI Pipelines to facilitate sending webhooks 
 Learn about Ziti at [ziti.dev](https://ziti.dev)
 
 
-[![Build](https://github.com/openziti/ziti-gitlab-webhook/workflows/Build/badge.svg?branch=main)]()
-[![Issues](https://img.shields.io/github/issues-raw/openziti/ziti-http-agent)]()
+[![Build](https://github.com/hanzozt/ziti-gitlab-webhook/workflows/Build/badge.svg?branch=main)]()
+[![Issues](https://img.shields.io/github/issues-raw/hanzozt/ziti-http-agent)]()
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![LOC](https://img.shields.io/tokei/lines/github/openziti/ziti-gitlab-webhook)]()
+[![LOC](https://img.shields.io/tokei/lines/github/hanzozt/ziti-gitlab-webhook)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=rounded)](CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 
 
-This GitLab CI Pipeline [image](https://github.com/orgs/openziti/packages/container/package/ziti-gitlab-webhook) uses the [Ziti NodeJS SDK](https://github.com/openziti/ziti-sdk-nodejs) to post an arbitrary JSON `payload` over a [Ziti Network](https://ziti.dev/about) to a protected service.  Here, an example of a protected service could be a self-hosted instance of Mattermost that is only accessible over Ziti.
+This GitLab CI Pipeline [image](https://github.com/orgs/hanzozt/packages/container/package/ziti-gitlab-webhook) uses the [Ziti NodeJS SDK](https://github.com/hanzozt/ziti-sdk-nodejs) to post an arbitrary JSON `payload` over a [Ziti Network](https://ziti.dev/about) to a protected service.  Here, an example of a protected service could be a self-hosted instance of Mattermost that is only accessible over Ziti.
 
 ## Example usage in a .gitlab-ci.yml pipeline:
 ```yml
 notify-job:
-  image: ghcr.io/openziti/ziti-gitlab-webhook:latest
+  image: ghcr.io/hanzozt/ziti-gitlab-webhook:latest
 
   stage: .pre
 
@@ -68,4 +68,4 @@ notify-job:
 
 The `ZITI_IDENTITY` referenced above is the JSON formatted string of an identity enrolled  in a `Ziti` network.
 
-The identity can be created by enrolling via the `ziti edge enroll path/to/jwt [flags]` command.  The `ziti` executable can be obtained [here](https://github.com/openziti/ziti/releases/latest).
+The identity can be created by enrolling via the `ziti edge enroll path/to/jwt [flags]` command.  The `ziti` executable can be obtained [here](https://github.com/hanzozt/ziti/releases/latest).

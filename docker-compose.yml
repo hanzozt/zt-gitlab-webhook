@@ -2,7 +2,7 @@ version: "3.3"
 services:
   ziti-gitlab-webhook:
     build: .
-    # image: ghcr.io/openziti/ziti-gitlab-webhook:0.1.0
+    # image: ghcr.io/hanzozt/ziti-gitlab-webhook:0.1.0
     restart: always
     environment:
       - ZITI_NODEJS_LOG=3
